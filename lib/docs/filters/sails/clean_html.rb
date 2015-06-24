@@ -2,15 +2,11 @@ module Docs
   class Sails
     class CleanHtmlFilter < Filter
       def call
+        doc.children = css('#readme > .entry-content').children
 
-        # Remove ng-* attributes
-        css('*').each do |node|
-          node.attributes.each_key do |attribute|
-            node.remove_attribute(attribute) if attribute.start_with? 'ng-'
-          end
+        css('h3').each do |el|
+          el.name = 'h2'
         end
-
-        css('.book-wrapper-banner').remove
 
         doc
       end
