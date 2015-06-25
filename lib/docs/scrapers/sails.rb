@@ -17,7 +17,8 @@ module Docs
     options[:title] = 'Sails.js'
     options[:container] = '.repository-content'
 
-    options[:only_patterns] = [/tree\/master\/reference/, /blob\/master\/reference/]
+    options[:skip_patterns] = [/0home/, /README\.md\z/]
+    options[:only_patterns] = [/tree\/master\/reference/, /blob\/master\/reference.*\.md\.html\z/]
 
     options[:fix_urls] = ->(url) do
       url.sub! '/blob/master/', '/tree/master/'
