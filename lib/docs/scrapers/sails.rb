@@ -6,7 +6,7 @@ module Docs
     self.type = 'sails'
     self.version = '0.11'
     self.base_url = 'https://github.com/balderdashy/sails-docs/'
-    self.root_path = 'tree/master/reference'
+    self.root_path = 'tree/master/reference/'
     self.links = {
       home: 'http://sailsjs.org/',
       code: 'https://github.com/balderdashy/sails'
@@ -22,6 +22,8 @@ module Docs
 
     options[:fix_urls] = ->(url) do
       url.sub! '/blob/master/', '/tree/master/'
+      url.sub! /(https?:\/\/)(www\.|beta\.)?sailsjs\.org\/#!?\/documentation\/reference\//, base_url + root_path
+      url.sub! 'beta.sailsjs.org', 'www.sailsjs.org'
       url
     end
 
