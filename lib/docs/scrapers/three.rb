@@ -6,7 +6,7 @@ module Docs
     self.type = 'three'
     self.slug = 'three'
     self.version = 'r71'
-    self.base_url = 'http://threejs.org/docs/'
+    self.base_url = 'http://threejs.org/docs/api/'
     self.links = {
       home: 'https://threejs.org/',
       code: 'https://github.com/mrdoob/three.js/'
@@ -27,8 +27,16 @@ module Docs
     def root_page_body
       require 'capybara'
       Capybara.current_driver = :selenium
-      Capybara.visit(root_url.to_s)
-      Capybara.find('#content')['innerHTML']
+      Capybara.visit('http://threejs.org/docs/')
+      menu = ''
+      Capybara.find('body').all('h3').each do |h3|
+        category = h3.text.downcase.sub '/', '.'
+        h3.parent.all('ul > li > a').each do |el|
+          link = base_url.to_s + category + '/' + el.text + '.html'
+          menu << '<a href="' + link + '">' + el.text + '</a>'
+        end
+      end
+      menu
     end
   end
 end
